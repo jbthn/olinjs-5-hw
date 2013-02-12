@@ -1,0 +1,36 @@
+extends layout
+
+block content
+  h1= title
+  img(src='http://graph.facebook.com/'+uid+'/picture?type=large')
+  p Welcome, #{name}!
+  form(class='preferences')
+    | Select your background color:
+    input(type='color', name='color', id='bgColor')
+    br
+    | Select your font:
+    select(name='font', id='ff')
+      for font in ['Arial', 'Helvetica', 'Serif', 'Tahoma', 'Verdana']
+        option(value=font.toLowerCase()) #{font}
+    br
+    | Change the border color around your picture:
+    input(type='color', name='border', id='bColor')
+    br
+    | Change the font color:
+    input(type='color', name='fontColor', id='fColor')
+    br
+    input(type='submit', value='Submit', class='button')
+    input(type='button', value="Don't save changes", class='button', id='cancel')
+  script
+    $('#bgColor').val('#{bg}');
+    $('#ff').val('#{font}');
+    $('#bColor').val('#{border}');
+    $('#fColor').val('#{fontColor}');
+    $('body').css({'background-color': '#{bg}', 'font-family': '#{font}', 'color': '#{fontColor}'});
+    $('img').css({'border': '8px solid ' + '#{border}'});
+    $('#cancel').click(function () {
+      $('#bgColor').val('#{bg}');
+      $('#ff').val('#{font}');
+      $('#bColor').val('#{border}');
+      $('#fColor').val('#{fontColor}');
+    })
